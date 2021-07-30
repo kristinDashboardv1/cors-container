@@ -20,11 +20,11 @@ function clusterApp(){
 
     cluster.on('exit', worker => console.error(`worker ${worker.process.pid} died`));
 
-    console.info("cors-container listening on port 3000 with " + numCPUs + " threads.")
+    console.info("cors-container listening on port 3001 with " + numCPUs + " threads.")
 }
 
 function listen(){
-    app.listen(process.env.PORT || 3000);
+    app.listen(process.env.PORT || 3001);
 }
 
 if (isMasterWorker) {
