@@ -34,7 +34,9 @@ module.exports = app => {
                 .addHeaderByKeyValue('Access-Control-Allow-Credentials', false)
                 .addHeaderByKeyValue('Access-Control-Allow-Headers', 'Content-Type')
                 .addHeaderByKeyValue('X-Proxied-By', 'cors-container')
+                .addHeaderByKeyValue('Cross-Origin-Resource-Policy', 'cross-origin')
                 .build(originResponse.headers);
+
             if(req.headers['rewrite-urls']){
                 res.send(
                     converter
@@ -42,7 +44,7 @@ module.exports = app => {
                         .replace(requestedUrl, corsBaseUrl + '/' + requestedUrl)
                 ); 
             }else{
-                res.send(originResponse.body);                
+                res.send(originResponse.body);
             }
         })
         .catch(originResponse => {
@@ -56,6 +58,6 @@ module.exports = app => {
             res.status(originResponse.statusCode || 500);
             
             return res.send(originResponse.message);
-        });
+        })
     });
 };
